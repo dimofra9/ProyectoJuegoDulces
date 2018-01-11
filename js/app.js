@@ -290,6 +290,26 @@ function constrainCandyMovement(event, candyDrag) {
 }
 
 
+function swapCandy(event, candyDrag) {
+	var candyDrag = $(candyDrag.draggable);
+	var dragSrc = candyDrag.attr('src');
+	var candyDrop = $(this);
+	var dropSrc = candyDrop.attr('src');
+	candyDrag.attr('src', dropSrc);
+	candyDrop.attr('src', dragSrc);
+
+	setTimeout(function () {
+		checkBoard();
+		if ($('img.delete').length === 0) {
+			candyDrag.attr('src', dragSrc);
+			candyDrop.attr('src', dropSrc);
+		} else {
+			updateMoves();
+		}
+	}, 500);
+
+}
+
 
 //punto 4 y 6. temporizador y boton reiniciar
 // inicia el juego
