@@ -1,40 +1,35 @@
-//Inicia el juego
-$(function() {
-	initGame();
-});
-
 //punto 1. cambia el color del titulo y alterna 
 function colorBlink(selector) {
 	$(selector).animate({
 		opacity: '1',
 	}, {
-		setp: function (){
-			$(this).css('color','white');
+		setp: function () {
+			$(this).css('color', 'white');
 		},
 		queue: true
 	})
 	.animate({
 		opacity: '1'
 	}, {
-		step: function (){
-			$(this).css('color','yellow');
+		step: function () {
+			$(this).css('color', 'yellow');
 		},
 		queue: true
 	},6000)
 	.delay(1000)
 	.animate({
-		opacity:'1'
+		opacity: '1'
 	}, {
-		step: function (){
-			$(this).css('color','white');
+		step: function () {
+			$(this).css('color', 'white');
 		},
 		queue: true
 	})
 	.animate({
-		opacity:'1'
+		opacity: '1'
 	}, {
-		step: function (){
-			$(this).css('color','yellow');
+		step: function () {
+			$(this).css('color', 'yellow');
 			colorBlink('h1.main-titulo');
 		},
 		queue: true
@@ -49,7 +44,7 @@ function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min)) + min;
 }
 
-// obtiene filas de dulces a columas
+// obtiene filas de dulces o columas
 function giveCandyArrays(arrayType, index) {
 
 	var candyCol1 = $('.col-1').children();
@@ -375,6 +370,15 @@ function deletesCandy() {
 
 
 //punto 4 y 6. temporizador y boton reiniciar
+//cambia el aspecto de la página
+//final del juego
+function endGame() {
+	$('div.panel-tablero, div.time').effect('fold');
+	$('h1.main-titulo').addClass('title-over')
+		.text('Gracias por jugar!');
+	$('div.score, div.moves, div.panel-score').width('100%');
+}
+
 // inicia el juego
 function initGame() {
 
@@ -392,11 +396,7 @@ function initGame() {
 	});
 }
 
-//cambia el aspecto de la página
-//final del juego
-function endGame() {
-	$('div.panel-tablero, div.time').effect('fold');
-	$('h1.main-titulo').addClass('title-over')
-		.text('Gracias por jugar!');
-	$('div.score, div.moves, div.panel-score').width('100%');
-}
+//Preparar el juego
+$(function() {
+	initGame();
+});
