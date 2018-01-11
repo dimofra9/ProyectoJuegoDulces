@@ -201,4 +201,93 @@ function deleteHorizontal(candyPosition, candyRow) {
 	}
 }
 
+function setScore(candyCount) {
+	var score = Number($('#score-text').text());
+	switch (candyCount) {
+		case 3:
+			score += 25;
+			break;
+		case 4:
+			score += 50;
+			break;
+		case 5:
+			score += 75;
+			break;
+		case 6:
+			score += 100;
+			break;
+		case 7:
+			score += 200;
+	}
+	$('#score-text').text(score);
+}
 
+function checkBoard() {
+	fillBoard();
+}
+
+function fillBoard() {
+	var top = 6;
+	var column = $('[class^="col-"]');
+
+	column.each(function () {
+		var candys = $(this).children().length;
+		var agrega = top - candys;
+		for (var i = 0; i < agrega; i++) {
+			var candyType = getRandomInt(1, 5);
+			if (i === 0 && candys < 1) {
+				$(this).append('<img src="image/' + candyType + '.png" class="element"></img>');
+			} else {
+				$(this).find('img:eq(0)').before('<img src="image/' + candyType + '.png" class="element"></img>');
+			}
+		}
+	});
+	addCandyEvents();
+	setValidations();
+}
+
+function setValidations() {
+	columnValidation();
+	rowValidation();
+	// Si hay dulces que borrar
+	if ($('img.delete').length !== 0) {
+		deletesCandyAnimation();
+	}
+}
+
+
+
+
+
+
+//punto 4 y 6. temporizador y boton reiniciar
+// inicia el juego
+function initGame() {
+
+	colorBlink('h1.main-titulo');
+
+	$('.btn-reinicio').click(function () {
+		if ($(this).text() === 'Reiniciar') {
+			location.reload(true);
+		}
+		checkBoard();
+		$(this).text('Reiniciar');
+		$('#timer').startTimer({
+			onComplete: endGame
+		})
+	});
+}
+
+//cambia el aspecto de la página
+//aquí termina el juego
+function endGame() {
+	$('div.panel-tablero, div.time').effect('fold');
+	$('h1.main-titulo').addClass('title-over')
+		.text('Gracias por jugar!');
+	$('div.score, div.moves, div.panel-score').width('100%');
+}
+
+// Prepara el juego
+$(function() {
+	initGame();
+});
