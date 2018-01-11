@@ -1,3 +1,8 @@
+//Inicia el juego
+$(function() {
+	initGame();
+});
+
 //punto 1. cambia el color del titulo y alterna 
 function colorBlink(selector) {
 	$(selector).animate({
@@ -138,6 +143,7 @@ function columnValidation() {
 		}
 	}
 }
+
 function deleteColumnCandy(candyPosition, candyColumn) {
 	for (var i = 0; i < candyPosition.length; i++) {
 		candyColumn.eq(candyPosition[i]).addClass('delete');
@@ -201,6 +207,7 @@ function deleteHorizontal(candyPosition, candyRow) {
 	}
 }
 
+//contador de puntuacion muestra la puntuacion
 function setScore(candyCount) {
 	var score = Number($('#score-text').text());
 	switch (candyCount) {
@@ -222,6 +229,7 @@ function setScore(candyCount) {
 	$('#score-text').text(score);
 }
 
+//pone los elemento caramelo en el tablero
 function checkBoard() {
 	fillBoard();
 }
@@ -246,16 +254,18 @@ function fillBoard() {
 	setValidations();
 }
 
+// Si hay dulces que borrar
 function setValidations() {
 	columnValidation();
-	rowValidation();
-	// Si hay dulces que borrar
+	rowValidation();	
 	if ($('img.delete').length !== 0) {
 		deletesCandyAnimation();
 	}
 }
 
 
+//punto 7. interacción del usuario con el elemento caramelo es drag and drop
+//efecto de movimiento entre los caramelos
 function addCandyEvents() {
 	$('img').draggable({
 		containment: '.panel-tablero',
@@ -282,6 +292,7 @@ function enableCandyEvents() {
 	$('img').droppable('enable');
 }
 
+//hace que el caramelo sea solido al moverse
 function constrainCandyMovement(event, candyDrag) {
 	candyDrag.position.top = Math.min(100, candyDrag.position.top);
 	candyDrag.position.bottom = Math.min(100, candyDrag.position.bottom);
@@ -289,7 +300,7 @@ function constrainCandyMovement(event, candyDrag) {
 	candyDrag.position.right = Math.min(100, candyDrag.position.right);
 }
 
-
+//reemplaza a los caramelos anteriores
 function swapCandy(event, candyDrag) {
 	var candyDrag = $(candyDrag.draggable);
 	var dragSrc = candyDrag.attr('src');
@@ -308,6 +319,20 @@ function swapCandy(event, candyDrag) {
 		}
 	}, 500);
 
+}
+
+
+function checkBoardPromise(result) {
+	if (result) {
+		checkBoard();
+	}
+}
+
+//valida la puntuacion por cantidad de elementos en linea
+function updateMoves() {
+	var actualValue = Number($('#movimientos-text').text());
+	var result = actualValue += 1;
+	$('#movimientos-text').text(result);
 }
 
 
@@ -330,15 +355,10 @@ function initGame() {
 }
 
 //cambia el aspecto de la página
-//aquí termina el juego
+//final del juego
 function endGame() {
 	$('div.panel-tablero, div.time').effect('fold');
 	$('h1.main-titulo').addClass('title-over')
 		.text('Gracias por jugar!');
 	$('div.score, div.moves, div.panel-score').width('100%');
 }
-
-// Prepara el juego
-$(function() {
-	initGame();
-});
