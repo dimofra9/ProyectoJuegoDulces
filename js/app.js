@@ -335,6 +335,32 @@ function updateMoves() {
 	$('#movimientos-text').text(result);
 }
 
+//eliminacion automatica de los elementos al iniciar el juego
+function deletesCandyAnimation() {
+	disableCandyEvents();
+	$('img.delete').effect('pulsate', 400);
+	$('img.delete').animate({
+			opacity: '0'
+		}, {
+			duration: 300
+		})
+		.animate({
+			opacity: '0'
+		}, {
+			duration: 400,
+			complete: function () {
+				deletesCandy()
+					.then(checkBoardPromise)
+					.catch(showPromiseError);
+			},
+			queue: true
+		});
+}
+
+function showPromiseError(error) {
+	console.log(error);
+}
+
 
 //punto 4 y 6. temporizador y boton reiniciar
 // inicia el juego
