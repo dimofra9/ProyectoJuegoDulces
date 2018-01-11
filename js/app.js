@@ -1,41 +1,40 @@
 //punto 1. cambia el color del titulo y alterna 
 function colorBlink(selector) {
 	$(selector).animate({
-		opacity: '1',
-	}, {
-		setp: function () {
-			$(this).css('color', 'white');
-		},
-		queue: true
-	})
-	.animate({
-		opacity: '1'
-	}, {
-		step: function () {
-			$(this).css('color', 'yellow');
-		},
-		queue: true
-	},6000)
-	.delay(1000)
-	.animate({
-		opacity: '1'
-	}, {
-		step: function () {
-			$(this).css('color', 'white');
-		},
-		queue: true
-	})
-	.animate({
-		opacity: '1'
-	}, {
-		step: function () {
-			$(this).css('color', 'yellow');
-			colorBlink('h1.main-titulo');
-		},
-		queue: true
-	});
+			opacity: '1',
+		}, {
+			step: function () {
+				$(this).css('color', 'white');
+			},
+			queue: true
+		})
+		.animate({
+			opacity: '1'
+		}, {
+			step: function () {
+				$(this).css('color', 'yellow');
+			},
+			queue: true
+		}, 600)
+		.delay(1000)
+		.animate({
+			opacity: '1'
+		}, {
+			step: function () {
+				$(this).css('color', 'white');
+			},
+			queue: true
+		})
+		.animate({
+			opacity: '1'
+		}, {
+			step: function () {
+				$(this).css('color', 'yellow');
+				colorBlink('h1.main-titulo');
+			},
+			queue: true
+		});
 }
-
 
 //punto 2. funcion para generar números aleatorios
 function getRandomInt(min, max) {
@@ -87,7 +86,6 @@ function candyColumns(index) {
 	return candyColumn[index];
 }
 
-
 //punto 3. Valida si hay dulces que se eliminarán en una columna
 function columnValidation() {
 	for (var j = 0; j < 7; j++) {
@@ -138,7 +136,6 @@ function columnValidation() {
 		}
 	}
 }
-
 function deleteColumnCandy(candyPosition, candyColumn) {
 	for (var i = 0; i < candyPosition.length; i++) {
 		candyColumn.eq(candyPosition[i]).addClass('delete');
@@ -195,7 +192,6 @@ function rowValidation() {
 		}
 	}
 }
-
 function deleteHorizontal(candyPosition, candyRow) {
 	for (var i = 0; i < candyPosition.length; i++) {
 		candyRow[candyPosition[i]].addClass('delete');
@@ -252,7 +248,8 @@ function fillBoard() {
 // Si hay dulces que borrar
 function setValidations() {
 	columnValidation();
-	rowValidation();	
+	rowValidation();
+	// Si hay dulces que borrar
 	if ($('img.delete').length !== 0) {
 		deletesCandyAnimation();
 	}
@@ -316,7 +313,6 @@ function swapCandy(event, candyDrag) {
 
 }
 
-
 function checkBoardPromise(result) {
 	if (result) {
 		checkBoard();
@@ -367,8 +363,6 @@ function deletesCandy() {
 	})
 }
 
-
-
 //punto 4 y 6. temporizador y boton reiniciar
 //cambia el aspecto de la página
 //final del juego
@@ -377,6 +371,7 @@ function endGame() {
 	$('h1.main-titulo').addClass('title-over')
 		.text('Gracias por jugar!');
 	$('div.score, div.moves, div.panel-score').width('100%');
+	
 }
 
 // inicia el juego
@@ -396,7 +391,8 @@ function initGame() {
 	});
 }
 
-//Preparar el juego
+// Prepara el juego
 $(function() {
 	initGame();
 });
+
