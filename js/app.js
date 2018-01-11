@@ -272,7 +272,22 @@ function addCandyEvents() {
 	enableCandyEvents();
 }
 
+function disableCandyEvents() {
+	$('img').draggable('disable');
+	$('img').droppable('disable');
+}
 
+function enableCandyEvents() {
+	$('img').draggable('enable');
+	$('img').droppable('enable');
+}
+
+function constrainCandyMovement(event, candyDrag) {
+	candyDrag.position.top = Math.min(100, candyDrag.position.top);
+	candyDrag.position.bottom = Math.min(100, candyDrag.position.bottom);
+	candyDrag.position.left = Math.min(100, candyDrag.position.left);
+	candyDrag.position.right = Math.min(100, candyDrag.position.right);
+}
 
 
 
