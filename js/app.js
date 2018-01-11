@@ -256,6 +256,22 @@ function setValidations() {
 }
 
 
+function addCandyEvents() {
+	$('img').draggable({
+		containment: '.panel-tablero',
+		droppable: 'img',
+		revert: true,
+		revertDuration: 500,
+		grid: [100, 100],
+		zIndex: 10,
+		drag: constrainCandyMovement
+	});
+	$('img').droppable({
+		drop: swapCandy
+	});
+	enableCandyEvents();
+}
+
 
 
 
