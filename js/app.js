@@ -335,7 +335,7 @@ function updateMoves() {
 	$('#movimientos-text').text(result);
 }
 
-//eliminacion automatica de los elementos al iniciar el juego
+//eliminacion automatica de los elementos
 function deletesCandyAnimation() {
 	disableCandyEvents();
 	$('img.delete').effect('pulsate', 400);
@@ -357,9 +357,21 @@ function deletesCandyAnimation() {
 		});
 }
 
+//llenado automatico de los espacios con elementos 
 function showPromiseError(error) {
 	console.log(error);
 }
+
+function deletesCandy() {
+	return new Promise(function (resolve, reject) {
+		if ($('img.delete').remove()) {
+			resolve(true);
+		} else {
+			reject('No se pudo eliminar Candy...');
+		}
+	})
+}
+
 
 
 //punto 4 y 6. temporizador y boton reiniciar
